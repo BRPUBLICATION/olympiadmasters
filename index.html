@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympiad Masters - Academic Competitions & Hackathons</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #ff6b6b;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --accent: #6c5ce7;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7ff;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 80px 0;
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(74, 107, 255, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(74, 107, 255, 0.05) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(74, 107, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(74, 107, 255, 0.4);
+            background-color: #3a5bef;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            background-color: #ff5a5a;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            max-width: 700px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(-20px); }
+            100% { transform: translateY(-50%) translateX(0); }
+        }
+
+        /* About Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+      
+      .events-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.event-card {
+  background-color: #f5f5f5;
+  border-radius: 15px;
+  padding: 1.5rem;
+  flex: 1 1 calc(50% - 2rem);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+.event-card h3 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.event-card .tagline {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.event-highlights {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.event-highlights ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.event-highlights li {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.event-highlights .btn {
+  margin-top: 1rem;
+}
+
+
+        .mission-values {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .mission-card, .value-card {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .mission-card:hover, .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .mission-card h3, .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .mission-card p, .value-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .value-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .feature-card:hover h3, .feature-card:hover p, .feature-card:hover i {
+            color: white;
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            transition: color 0.3s;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            transition: color 0.3s;
+        }
+
+      /* Competitions Section */
+.competition-categories {
+    margin: 80px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.tab-btn {
+    padding: 12px 30px;
+    background: #f1f1f1;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tab-btn.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.competition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.competition-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.competition-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.competition-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.competition-card h3 {
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.competition-card p {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.competition-card .date {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.competition-card .date i {
+    margin-right: 8px;
+}
+
+.competition-card .btn {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 0;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    margin-top: auto;
+}
+
+.competition-card .btn:hover {
+    background: #0056b3; /* Fallback if --primary is blue */
+    color: #fff;
+}
+
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-member img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .team-member .member-info {
+            padding: 20px;
+        }
+
+        .team-member h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .team-member p.role {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .team-member p.bio {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Partners Section */
+        .partners {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .partner-logo {
+            max-width: 150px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .contact-info p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+
+        .contact-item div h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-item div p {
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-media a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-media a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column p {
+            color: #bbb;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-image {
+                width: 45%;
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: all 0.5s ease;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero {
+                text-align: center;
+                padding-top: 100px;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .hero-image {
+                position: relative;
+                width: 80%;
+                margin: 40px auto 0;
+                transform: none;
+                top: auto;
+                right: auto;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .mission-card, .value-card {
+                min-width: 100%;
+            }
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+   <!-- Header -->
+<header id="header">
+    <div class="container">
+        <nav>
+            <a href="#" class="logo" onclick="showPage('home')">
+                <img src="https://i.ibb.co/FLTMzLhJ/OM-2.png"alt="Olympiad Masters Logo" style="height: 70px; vertical-align: middle;">
+            </a>
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('competitions')">Competitions</a></li>
+                <li><a href="#" onclick="showPage('about')">About Us</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                <li><a href="#" class="btn btn-secondary" onclick="showPage('competitions')">Register Now</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Home Page -->
+    <div class="page active" id="home">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Unlock Your <span>Potential</span> Through Competitive Excellence</h1>
+                    <p>Olympiad Masters is a leading platform for academic competitions and hackathons, dedicated to fostering intellectual curiosity and innovation among students.</p>
+                    <a href="#" class="btn" onclick="showPage('competitions')">Explore Competitions</a>
+                    <a href="#" class="btn btn-secondary" onclick="showPage('about')">Learn More</a>
+                </div>
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Students collaborating" class="hero-image">
+            </div>
+        </section>
+    <!-- Ongoing Events Section -->
+<section class="section" id="ongoing-events">
+  <div class="container">
+    <div class="section-title animate-on-scroll">
+      <h2>Ongoing Events</h2>
+      <p class="prize-highlight">Winners will be awarded with: 1. Up to ₹1,00,000 worth prizes, 2. Internship opportunities, 3. Mentoring opportunities, 4. Job placements</p>
+    </div>
+
+    <div class="events-grid">
+     <!-- CodeWars Event -->
+<div class="event-card animate-on-scroll delay-1">
+  <h3>CodeWars</h3>
+  <p class="tagline">"Battle for Innovation"</p>
+  <p>CodeWars is a 24-hour hackathon where coders, developers, and innovators come together to battle it out in a coding war.</p>
+  <a href="https://drive.google.com/file/d/1E4m0Xs6PIdKtLljkJ-Drx0hXqmcMaSYL/view?usp=sharing" target="_blank" class="btn">Read More</a>
+</div>
+
+      <!-- AgriHack Event -->
+      <div class="event-card animate-on-scroll delay-2">
+        <h3>AgriHack</h3>
+        <p class="tagline">Innovative Solutions for Agriculture</p>
+        <p>A hackathon bringing together innovative minds to develop solutions for the agricultural sector.</p>
+        <a href="https://docs.google.com/document/d/1gwFhFH78pNKOtuzkYGu5GCjfSaMdDdEw3zReTHKUU0o/edit?usp=sharing" target="_blank" class="btn">Read More</a>
+      </div>
+    </div>
+
+    <!-- Event Highlights and Book Stall -->
+    <div class="event-highlights animate-on-scroll delay-3">
+      <h3>Event Highlights</h3>
+      <ul>
+        <li>🏆 Competitions</li>
+        <li>🎪 Exhibition</li>
+        <li>🛍️ Stalls</li>
+        <li>🤝 Networking Opportunities</li>
+      </ul>
+      <a href="#book-stall" class="btn btn-secondary"><i class="fas fa-store"></i> Book Your Stall</a>
+    </div>
+  </div>
+</section>
+
+  <!-- CodeWars Details Page -->
+  <div id="codewars-details" class="event-detail-container">
+    <div class="event-header">
+      <h1>CodeWars</h1>
+      <p class="event-tagline">"Battle for Innovation"</p>
+    </div>
+    
+    <div class="event-content">
+      <div class="event-details-section">
+        <h2>Event Overview</h2>
+        <p>CodeWars is a 24-hour hackathon where coders, developers, and innovators come together to battle it out in a coding war. This intense competition challenges participants to solve real-world problems through innovative coding solutions.</p>
+        
+        <h3>Objective</h3>
+        <ul>
+          <li>Foster innovation through competitive programming</li>
+          <li>Promote advanced coding skills and problem-solving</li>
+          <li>Build a community of passionate developers</li>
+        </ul>
+        
+        <h3>Competition Format</h3>
+        <ul>
+          <li><strong>Team formation:</strong> 2–4 members per team</li>
+          <li><strong>Problem statements:</strong> Multiple challenges across difficulty levels</li>
+          <li><strong>Coding phase:</strong> 24-hour continuous coding session</li>
+          <li><strong>Judging:</strong> Evaluation by expert panel based on innovation, efficiency, and completeness</li>
+          <li><strong>Awards:</strong> Prizes and recognition for top performers</li>
+        </ul>
+        
+        <h3>Themes</h3>
+        <ul>
+          <li>Artificial Intelligence and Machine Learning</li>
+          <li>Cybersecurity and Ethical Hacking</li>
+          <li>Web Development and Design</li>
+          <li>Mobile App Development</li>
+          <li>Blockchain Technology</li>
+        </ul>
+      </div>
+      
+      <div class="event-sidebar">
+        <h3>Event Details</h3>
+        <p><strong>Date:</strong> November 15-16, 2023</p>
+        <p><strong>Location:</strong> Tech Convention Center, Bangalore</p>
+        <p><strong>Registration Deadline:</strong> November 1, 2023</p>
+        
+        <h3>Prizes</h3>
+        <ul>
+          <li>1st Prize: ₹50,000 + Internship Opportunities</li>
+          <li>2nd Prize: ₹30,000 + Mentorship</li>
+          <li>3rd Prize: ₹20,000 + Gadgets</li>
+          <li>Special category prizes for innovation</li>
+        </ul>
+        
+        <h3>Target Audience</h3>
+        <ul>
+          <li>College students (CS/IT/ECE branches)</li>
+          <li>Professional developers</li>
+          <li>Tech enthusiasts and hobby coders</li>
+        </ul>
+        
+        <a href="#register" class="btn">Register Now</a>
+      </div>
+    </div>
+    
+    <a href="#" class="back-button">← Back to Events</a>
+  </div>
+
+  <!-- AgriHack Details Page -->
+  <div id="agrihack-details" class="event-detail-container">
+    <div class="event-header">
+      <h1>AgriHack</h1>
+      <p class="event-tagline">Innovative Solutions for Agriculture</p>
+    </div>
+    
+    <div class="event-content">
+      <div class="event-details-section">
+        <h2>Event Overview</h2>
+        <p>AgriHack is a specialized hackathon focused on developing technological solutions for challenges in the agricultural sector. This event brings together developers, agriculturists, and entrepreneurs to create impactful solutions.</p>
+        
+        <h3>Objectives</h3>
+        <ul>
+          <li>Improve Agricultural Productivity through technology</li>
+          <li>Enhance Sustainability in farming practices</li>
+          <li>Support Smallholder Farmers with affordable solutions</li>
+          <li>Bridge the gap between tech and agriculture</li>
+        </ul>
+        
+        <h3>Themes</h3>
+        <ul>
+          <li><strong>Precision Agriculture:</strong> IoT, sensors, and data analytics</li>
+          <li><strong>Supply Chain Optimization:</strong> Farm-to-market solutions</li>
+          <li><strong>Climate-Smart Agriculture:</strong> Weather prediction, water management</li>
+          <li><strong>Financial Inclusion:</strong> Solutions for farmer financing</li>
+        </ul>
+        
+        <h3>Competition Format</h3>
+        <ul>
+          <li><strong>Team Formation:</strong> 2–5 members (encouraged to include domain experts)</li>
+          <li><strong>Idea Submission:</strong> Preliminary round with concept notes</li>
+          <li><strong>Mentorship:</strong> Guidance from agriculture and tech experts</li>
+          <li><strong>Prototype Development:</strong> 48-hour hackathon to build solutions</li>
+          <li><strong>Final Pitch:</strong> Presentation to judges and investors</li>
+        </ul>
+      </div>
+      
+      <div class="event-sidebar">
+        <h3>Event Details</h3>
+        <p><strong>Date:</strong> December 5-7, 2023</p>
+        <p><strong>Location:</strong> Agricultural University, Hyderabad</p>
+        <p><strong>Registration Deadline:</strong> November 20, 2023</p>
+        
+        <h3>Eligibility</h3>
+        <ul>
+          <li>Students (Agriculture/Engineering/Business)</li>
+          <li>Startups in AgriTech space</li>
+          <li>Professionals interested in agriculture innovation</li>
+        </ul>
+        
+        <h3>Prizes</h3>
+        <ul>
+          <li>Total Prize Pool: ₹1,00,000</li>
+          <li>Incubation Support for top 3 teams</li>
+          <li>Pilot opportunities with farming cooperatives</li>
+          <li>Media coverage and investor connections</li>
+        </ul>
+        
+        <a href="#register" class="btn">Register Now</a>
+      </div>
+    </div>
+    
+    <a href="#" class="back-button">← Back to Events</a>
+  </div>
+
+</section>
+
+<!-- Toggle Script -->
+<script>
+  function toggleDetails(id) {
+    const section = document.getElementById(id);
+    section.style.display = section.style.display === "none" ? "block" : "none";
+  }
+</script>
+
+
+
+
+       <!-- Mission & Values Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title animate-on-scroll">
+                    <h2>Our Mission & Values</h2>
+                </div>
+                <div class="mission-values">
+                    <div class="mission-card animate-on-scroll delay-1">
+                        <h3>Our Mission</h3>
+                        <p>Our mission is to provide a platform for students to discover their potential, develop their skills, and achieve excellence in their chosen fields. We strive to create a community of like-minded individuals who share a passion for learning, innovation, and competition.</p>
+                    </div>
+                    <div class="value-card animate-on-scroll delay-2">
+                        <i class="fas fa-star"></i>
+                        <h3>Excellence</h3>
+                        <p>We strive for excellence in everything we do, setting high standards for our competitions and participants.</p>
+                    </div>
+                    <div class="value-card animate-on-scroll delay-3">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Innovation</h3>
+                        <p>We encourage innovation and creativity in our events and activities, pushing boundaries of what's possible.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title animate-on-scroll">
+                    <h2>Why Choose Olympiad Masters?</h2>
+                </div>
+                <div class="features">
+                    <div class="feature-card animate-on-scroll delay-1">
+                        <i class="fas fa-user-tie"></i>
+                        <h3>Expert Judges</h3>
+                        <p>Our events are judged by experienced professionals and academics who provide valuable feedback.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll delay-2">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <h3>Innovative Problems</h3>
+                        <p>Our competitions feature challenging and innovative problems that test students' skills.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll delay-3">
+                        <i class="fas fa-trophy"></i>
+                        <h3>Prizes & Recognition</h3>
+                        <p>Winners receive prizes, certificates, and recognition to showcase their achievements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title animate-on-scroll">
+                  <h2>Benefits for Participants</h2>
+</div>
+<div class="features">
+    <div class="feature-card animate-on-scroll delay-1">
+        <i class="fas fa-brain"></i>
+        <h3>Problem-Solving Skills</h3>
+        <p>Develop critical thinking, problem-solving, and analytical skills through our challenges.</p>
+    </div>
+    <div class="feature-card animate-on-scroll delay-2">
+        <i class="fas fa-rocket"></i>
+        <h3>Fosters Innovation</h3>
+        <p>Our hackathons and competitions encourage creative thinking and innovative solutions.</p>
+    </div>
+    <div class="feature-card animate-on-scroll delay-3">
+        <i class="fas fa-user-plus"></i>
+        <h3>Builds Confidence</h3>
+        <p>Showcase your skills and build confidence through our competitive platform.</p>
+    </div>
+    <div class="feature-card animate-on-scroll delay-4">
+        <i class="fas fa-money-bill-wave"></i>
+        <h3>Win Cash Prizes</h3>
+        <p>Participants stand a chance to win exciting cash prizes and other rewards.</p>
+    </div>
+    <div class="feature-card animate-on-scroll delay-5">
+        <i class="fas fa-network-wired"></i>
+        <h3>Networking Opportunities</h3>
+        <p>Connect with mentors, industry experts, and like-minded peers.</p>
+    </div>
+    <div class="feature-card animate-on-scroll delay-6">
+        <i class="fas fa-award"></i>
+        <h3>Recognition & Exposure</h3>
+        <p>Gain recognition and exposure on prestigious platforms for your skills and innovation.</p>
+    </div>
+</div>
+</div>
+</section>
+  </div>
+    
+    <div class="page" id="competitions">
+    <section class="section">
+        <div class="container">
+
+            <!-- Ongoing Events Section -->
+            <div class="ongoing-events">
+                <h3 class="section-subtitle animate-pop-in delay-2">
+                    <i class="fas fa-fire"></i> Ongoing Events
+                </h3>
+                <div class="competition-grid">
+                    <div class="competition-card featured animate-slide-up delay-3">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="CodeWars">
+                            <div class="image-overlay"></div>
+                            <div class="competition-tag">Live Now!</div>
+                            <div class="time-remaining">
+                                <i class="fas fa-clock"></i> live now
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>CodeWars</h3>
+                            <p class="tagline">"Battle for Innovation"</p>
+                            <p>A 24-hour hackathon where coders battle to solve real-world problems with innovative solutions.</p>
+                            <div class="competition-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Teams of 2-4</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>$10,000 Prize Pool</span>
+                                </div>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 65%"></div>
+                            </div>
+                            <a href="#" class="btn btn-gradient pulse">
+                                <span>Join Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="competition-card featured animate-slide-up delay-4">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="AGRIHACK">
+                            <div class="image-overlay"></div>
+                            <div class="competition-tag">Live Now!</div>
+                            <div class="time-remaining">
+                                <i class="fas fa-clock"></i> live now
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>AGRIHACK</h3>
+                            <p class="tagline">"Innovative Solutions for Agriculture"</p>
+                            <p>Develop tech-driven solutions to address agricultural challenges and support smallholder farmers.</p>
+                            <div class="competition-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-leaf"></i>
+                                    <span>Sustainable Solutions</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-rupee-sign"></i>
+                                    <span>Up to ₹1,00,000</span>
+                                </div>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 80%"></div>
+                            </div>
+                            <a href="#" class="btn btn-gradient pulse">
+                                <span>Join Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upcoming Events Section -->
+            <div class="upcoming-events">
+                <h3 class="section-subtitle animate-pop-in delay-5">
+                    <i class="fas fa-calendar-alt"></i> Upcoming Events
+                </h3>
+                
+                <div class="category-tabs">
+                    <button class="tab-btn active animate-pop-in delay-6" onclick="openTab('coding')">
+                        <i class="fas fa-code"></i> Coding
+                    </button>
+                    <button class="tab-btn animate-pop-in delay-7" onclick="openTab('robotics')">
+                        <i class="fas fa-robot"></i> Robotics
+                    </button>
+                    <button class="tab-btn animate-pop-in delay-8" onclick="openTab('drones')">
+                        <i class="fas fa-drone-alt"></i> Drones
+                    </button>
+                    <button class="tab-btn animate-pop-in delay-9" onclick="openTab('academic')">
+                        <i class="fas fa-graduation-cap"></i> Academic
+                    </button>
+                </div>
+                
+                <!-- Coding Competitions -->
+                <div id="coding" class="tab-content active">
+                    <div class="competition-grid">
+                        <div class="competition-card animate-slide-up delay-1">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="HackFest">
+                                <div class="image-overlay"></div>
+                                <div class="competition-tag">Coming Soon</div>
+                            </div>
+                            <div class="card-content">
+                                <h3>HackFest</h3>
+                                <p>A fun and energetic hackathon that conveys the excitement of collaborative coding.</p>
+                                <div class="competition-details">
+                                    <div class="date">
+                                        <i class="far fa-calendar-alt"></i>coming soon
+                                    </div>
+                                    <div class="prize">
+                                        <i class="fas fa-award"></i> $7,500 Prize Pool
+                                    </div>
+                                </div>
+                                <div class="notify-me">
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-bell"></i> Notify Me
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="competition-card animate-slide-up delay-2">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="CodeFusion">
+                                <div class="image-overlay"></div>
+                                <div class="competition-tag">Coming Soon</div>
+                            </div>
+                            <div class="card-content">
+                                <h3>CodeFusion</h3>
+                                <p>Blend different technologies and ideas in this innovative coding competition.</p>
+                                <div class="competition-details">
+                                    <div class="date">
+                                        <i class="far fa-calendar-alt"></i> coming soon
+                                    </div>
+                                    <div class="prize">
+                                        <i class="fas fa-award"></i> $6,000 Prize Pool
+                                    </div>
+                                </div>
+                                <div class="notify-me">
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-bell"></i> Notify Me
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Robotics Competitions -->
+                <div id="robotics" class="tab-content">
+                    <div class="competition-grid">
+                        <div class="competition-card animate-slide-up delay-1">
+                            <div class="card-image">
+                                <img src="https://i.ibb.co/mCYH7hjZ/images.jpg" alt="RoboForge">
+                                <div class="image-overlay"></div>
+                                <div class="competition-tag">Coming Soon</div>
+                            </div>
+                            <div class="card-content">
+                                <h3>RoboForge</h3>
+                                <p>Build and shape the future of robotics in this innovative competition.</p>
+                                <div class="competition-details">
+                                    <div class="date">
+                                        <i class="far fa-calendar-alt"></i>coming soon
+                                    </div>
+                                    <div class="prize">
+                                        <i class="fas fa-award"></i> $8,000 Prize Pool
+                                    </div>
+                                </div>
+                                <div class="notify-me">
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-bell"></i> Notify Me
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="competition-card animate-slide-up delay-2">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="RoboWars">
+                                <div class="image-overlay"></div>
+                                <div class="competition-tag">Coming Soon</div>
+                            </div>
+                            <div class="card-content">
+                                <h3>RoboWars</h3>
+                                <p>A thrilling combat robotics competition with elimination tournament.</p>
+                                <div class="competition-details">
+                                    <div class="date">
+                                        <i class="far fa-calendar-alt"></i> July 15-17, 2023
+                                    </div>
+                                    <div class="prize">
+                                        <i class="fas fa-award"></i> $10,000 Prize Pool
+                                    </div>
+                                </div>
+                                <div class="notify-me">
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-bell"></i> Notify Me
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Drones Competitions -->
+                <div id="drones" class="tab-content">
+                    <div class="competition-grid">
+                        <div class="competition-card animate-slide-up delay-1">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="DroneDash">
+                                <div class="image-overlay"></div>
+                                <div class="competition-tag">Coming Soon</div>
+                            </div>
+                            <div class="card-content">
+                                <h3>DroneDash</h3>
+                                <p>Race against the clock in this high-speed drone competition.</p>
+                                <div class="competition-details">
+                                    <div class="date">
+                                        <i class="far fa-calendar-alt"></i> coming soon
+                                    </div>
+                                    <div class="prize">
+                                        <i class="fas fa-award"></i> $5,500 Prize Pool
+                                    </div>
+                                </div>
+                                <div class="notify-me">
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-bell"></i> Notify Me
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="competition-card animate-slide-up delay-2">
+                            <div class="card-image">
+                                <img src="https://i.ibb.co/ccbQS9Z1/drone022-2.jpg" alt="SkyHack">
+                                <div class="image-overlay"></div>
+                                <div class="competition-tag">Coming Soon</div>
+                            </div>
+                            <div class="card-content">
+                                <h3>SkyHack</h3>
+                                <p>Develop groundbreaking drone solutions for real-world problems.</p>
+                                <div class="competition-details">
+                                    <div class="date">
+                                        <i class="far fa-calendar-alt"></i> coming soon
+                                    </div>
+                                    <div class="prize">
+                                        <i class="fas fa-award"></i> $6,500 Prize Pool
+                                    </div>
+                                </div>
+                                <div class="notify-me">
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-bell"></i> Notify Me
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Academic Competitions -->
+                <div id="academic" class="tab-content">
+                    <div class="competition-grid">
+                        <div class="competition-card animate-slide-up delay-1">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Math Olympiad">
+                                <div class="image-overlay"></div>
+                                <div class="competition-tag">Coming Soon</div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Math Olympiad</h3>
+                                <p>Challenge your mathematical skills with complex problems.</p>
+                                <div class="competition-details">
+                                    <div class="date">
+                                        <i class="far fa-calendar-alt"></i>coming soon
+                                    </div>
+                                    <div class="prize">
+                                        <i class="fas fa-award"></i> Scholarships + Awards
+                                    </div>
+                                </div>
+                                <div class="notify-me">
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-bell"></i> Notify Me
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="competition-card animate-slide-up delay-2">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Science Olympiad">
+                                <div class="image-overlay"></div>
+                                <div class="competition-tag">Coming Soon</div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Science Olympiad</h3>
+                                <p>Test your scientific knowledge and experimental skills.</p>
+                                <div class="competition-details">
+                                    <div class="date">
+                                        <i class="far fa-calendar-alt"></i>coming soon
+                                    </div>
+                                    <div class="prize">
+                                        <i class="fas fa-award"></i> Scholarships + Awards
+                                    </div>
+                                </div>
+                                <div class="notify-me">
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-bell"></i> Notify Me
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<!-- About Us Page -->
+<div class="page" id="about">
+    <!-- Hero Section with Full-width Background -->
+    <section class="section hero-section" style="
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 100px 0;
+        text-align: center;
+    ">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: white; font-size: 3rem;">About Olympiad Masters</h2>
+                <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Empowering the next generation of innovators through challenging competitions and collaborative learning experiences</p>
+            </div>
+        </div>
+    </section>
+    
+   <!-- Our Story Section with Gradient Background -->
+<section class="section" style="
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    padding: 80px 0;
+">
+    <div class="container">
+        <div class="mission-card" style="
+            max-width: 850px;
+            margin: 0 auto 60px;
+            background: white;
+            padding: 45px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        ">
+            <h3 style="color: #2c3e50; margin-bottom: 25px; font-size: 2rem;">Our Story</h3>
+            <p style="line-height: 1.8; margin-bottom: 20px; font-size: 1rem;">Olympiad Masters was founded with a vision to create a platform where students could challenge themselves, showcase their talents, and connect with like-minded individuals. What started as a small initiative has grown into a leading organization for academic competitions and hackathons, hosting events that attract participants from around the world.</p>
+            <p style="line-height: 1.8; font-size: 1rem;">Our team of educators, industry professionals, and competition experts work tirelessly to create events that are not only challenging but also rewarding and fun. We believe that competition drives innovation, and through our events, we aim to inspire the next generation of thinkers, creators, and leaders.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Committee Section with Patterned Dark Background -->
+<section class="section" style="
+    background-color: #1c2833;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 25px 25px;
+    padding: 80px 0;
+    color: white;
+">
+    <div class="container">
+        <div class="section-title" style="text-align: center; margin-bottom: 50px;">
+            <h2 style="color: white; font-size: 2.2rem;">Our Committee</h2>
+            <p style="color: #ccc; font-size: 1rem;">Meet the minds behind our incredible journey and successful events.</p>
+        </div>
+
+        <div class="team-grid" style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        ">
+
+            <!-- Committee Member 1 -->
+            <div class="team-member" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+                <img src="https://i.ibb.co/CptRrpXm/Whats-App-Image-2025-04-14-at-19-09-18-c25a2144.jpg" alt="Dr. Rahul Vadiseety" style="width: 100%; height: 250px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <h3 style="color: white;">Dr. Rahul Vadiseety</h3>
+                    <p style="color: #3498db;">Sr Software Engineer, US BANK, USA</p>
+                    <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem;">AI researcher with 10+ years in ML, cybersecurity, and smart governance. Pioneer in AI-Based Smart Governance frameworks.</p>
+                </div>
+            </div>
+
+            <!-- Committee Member 2 -->
+            <div class="team-member" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+                <img src="https://i.ibb.co/q3Kbh6m7/Ipshita-nanda.jpg" alt="Dr. Ipseeta Nanda" style="width: 100%; height: 250px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <h3 style="color: white;">Dr. Ipseeta Nanda</h3>
+                    <p style="color: #3498db;">Professor, IILM University</p>
+                    <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem;">Dean, PhD Guide, awarded IIWA-2020. Expertise in IoT, curriculum design, and higher education leadership.</p>
+                </div>
+            </div>
+
+            <!-- Committee Member 3 -->
+            <div class="team-member" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+                <img src="https://i.ibb.co/yF804K8c/PG-Robotics-Automation.png" alt="Dr. Rath Satyasambit" style="width: 100%; height: 250px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <h3 style="color: white;">Dr. Rath Satyasambit</h3>
+                    <p style="color: #3498db;">Research Technician, RIKEN Brain Science, Japan</p>
+                    <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem;">PhD in AI, works on neural data and bRNN decoders in cognitive neuroscience and emotion-related memory tasks.</p>
+                </div>
+            </div>
+
+            <!-- Committee Member 4 -->
+            <div class="team-member" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+                <img src="https://i.ibb.co/btyR9HW/Naaema-nazar.jpg" alt="Ms. Naeema Nazar" style="width: 100%; height: 250px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <h3 style="color: white;">Ms. Naeema Nazar</h3>
+                    <p style="color: #3498db;">Asst. Professor, VISAT Engineering College</p>
+                    <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem;">IEEE Student Branch Counselor and passionate educator in technology and innovation.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- Partners Section with Gradient Background -->
+    <section class="section" style="
+        background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+        padding: 80px 0;
+        color: white;
+    ">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: white;">Our Partners & Sponsors</h2>
+                <p style="color: rgba(255,255,255,0.8);">We're proud to collaborate with these outstanding organizations</p>
+            </div>
+            
+            <div class="partners" style="
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+                margin-top: 50px;
+            ">
+                <img src="https://via.placeholder.com/150x80/ffffff/3498db?text=TECH+INC" alt="Tech Inc" class="partner-logo" style="
+                    filter: brightness(0) invert(1);
+                    opacity: 0.8;
+                    transition: opacity 0.3s ease;
+                ">
+                <img src="https://via.placeholder.com/150x80/ffffff/3498db?text=EDU+FOUNDATION" alt="Edu Foundation" class="partner-logo" style="
+                    filter: brightness(0) invert(1);
+                    opacity: 0.8;
+                    transition: opacity 0.3s ease;
+                ">
+                <img src="https://via.placeholder.com/150x80/ffffff/3498db?text=CODE+WORLD" alt="Code World" class="partner-logo" style="
+                    filter: brightness(0) invert(1);
+                    opacity: 0.8;
+                    transition: opacity 0.3s ease;
+                ">
+                <img src="https://via.placeholder.com/150x80/ffffff/3498db?text=FUTURE+TECH" alt="Future Tech" class="partner-logo" style="
+                    filter: brightness(0) invert(1);
+                    opacity: 0.8;
+                    transition: opacity 0.3s ease;
+                ">
+                <img src="https://via.placeholder.com/150x80/ffffff/3498db?text=INNOVATE+ED" alt="Innovate Ed" class="partner-logo" style="
+                    filter: brightness(0) invert(1);
+                    opacity: 0.8;
+                    transition: opacity 0.3s ease;
+                ">
+            </div>
+        </div>
+    </section>
+</div>
+
+    <!-- Contact Us Page -->
+    <div class="page" id="contact">
+        <section class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Contact Us</h2>
+                </div>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <p>Have questions about our competitions or events? Want to partner with us or sponsor an event? We'd love to hear from you!</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <h4>Our Office</h4>
+                                    <p>123 Competition Ave, Innovation District, CA 90210</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <div>
+                                    <h4>Phone</h4>
+                                    <p>+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <h4>Email</h4>
+                                    <p>info@olympiadmasters.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-bottom: 15px;">Follow Us</h4>
+                        <div class="social-media">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Olympiad Masters</h3>
+                    <p>A leading platform for academic competitions and hackathons, dedicated to fostering intellectual curiosity and innovation among students.</p>
+                    <div class="social-media" style="justify-content: flex-start;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#" onclick="showPage('competitions')">Competitions</a></li>
+                        <li><a href="#" onclick="showPage('about')">About Us</a></li>
+                        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Competitions</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">CodeCraft</a></li>
+                        <li><a href="#">HackFest</a></li>
+                        <li><a href="#">RoboForge</a></li>
+                        <li><a href="#">DroneDash</a></li>
+                        <li><a href="#">Math Olympiad</a></li>
+                        <li><a href="#">Science Olympiad</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to get updates on upcoming competitions and events.</p>
+                    <form style="display: flex; margin-top: 15px;">
+                        <input type="email" placeholder="Your Email" style="flex: 1; padding: 10px; border: none; border-radius: 5px 0 0 5px;">
+                        <button type="submit" style="background: var(--primary); color: white; border: none; padding: 0 15px; border-radius: 0 5px 5px 0; cursor: pointer;"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Olympiad Masters. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Close mobile menu if open
+            navLinks.classList.remove('active');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Competition Tab Navigation
+        function openTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Animation on Scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.classList.add('animated');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
